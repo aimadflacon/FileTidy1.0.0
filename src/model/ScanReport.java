@@ -50,12 +50,12 @@ public class ScanReport {
 
 	/*imprime en consola un resumen limpio y visual con la vista previa para el usuario.*/	
 	public void printPreview() {
-		System.out.println("\n--------------------------------------------------");
-		System.out.println(" 🔍 FILE TIDY - VISTA PREVIA DE ESCANEO");
-		System.out.println(" Carpeta objetivo: " + rutaCarpeta.toAbsolutePath());
-		System.out.println("--------------------------------------------------");
+		System.out.println("FILE TIDY - VISTA PREVIA DE ESCANEO");
+		System.out.println("Carpeta objetivo: " + rutaCarpeta.toAbsolutePath());
+		System.out.println();
 
 		if (archivosCategorizados.isEmpty() && archivosNoCategorizados.isEmpty()) {
+			//en mac nunca va a entrar en este if por el archivo oculto (mira observaciones en la clase main)
 			System.out.println(" No se encontraron archivos organizables en esta carpeta.");
 			System.out.println("--------------------------------------------------");
 			return;
@@ -63,22 +63,20 @@ public class ScanReport {
 
 		// Recorremos cada categoría y mostramos cuántos archivos tiene
 		archivosCategorizados.forEach((category, files) -> {
-			System.out.printf(" 📂 [%s]: %d archivo(s)\n", category, files.size());
+			System.out.printf("[%s]: %d archivo(s)\n", category, files.size());
 			// Mostramos hasta 3 ejemplos de archivos para no saturar la consola
 			files.stream().limit(3).forEach(file -> 
 			System.out.println("    ├── " + file.getFileName()));
 			if (files.size() > 3) {
 				System.out.println("    └── ... y " + (files.size() - 3) + " más");
 			}});
-
-		if (!archivosNoCategorizados.isEmpty()) {
-			System.out.println("\n ❓ [Sin categoría / Ignorados]: " + archivosNoCategorizados.size() + " archivo(s)");
-		}
-
-		System.out.println("--------------------------------------------------");
 		System.out.printf(" TOTAL A ORGANIZAR: %d archivo(s)\n", TotalCategorizedCount());
-		System.out.println("--------------------------------------------------\n");
+		if (!archivosNoCategorizados.isEmpty()) {
+			System.out.println("[Sin categoría / Ignorados]: " + archivosNoCategorizados.size() + " archivo(s)");
+		}
 	}
-
 }
+
+
+
 

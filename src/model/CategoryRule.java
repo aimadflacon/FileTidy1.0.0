@@ -23,7 +23,7 @@ public class CategoryRule {
 
 	//comprueba si la extencion no es vacia o nula y asegura q empieza con un punto y lo añade al conjunto de extenciones 
 	public CategoryRule addExtention(String extention) {
-		if(categoryName == null && !extention.trim().isEmpty()) {
+		if(categoryName != null && !extention.trim().isEmpty()) {
 			String formattedExtention = extention.trim().toLowerCase();
 
 			if(!formattedExtention.startsWith(".")) {
